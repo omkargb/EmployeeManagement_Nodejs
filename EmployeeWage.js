@@ -1,17 +1,20 @@
-//Calculating Wages for a Month assuming 20 Working Days
+//Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
 const IS_PART_TIME = 1;      const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;   const FULL_TIME_HOURS = 8;
 const WAGE_PER_HOUR = 20;
-const WORKING_DAYS=20;
-let empHrs=0;
+const MAX_WORKING_DAYS=20;
+const MAX_HRS_IN_MONTH=160;
+let totalEmpHrs=0, empWorkingDays=0;
 
-for(let day = 0; day < WORKING_DAYS; day++){
-let empCheck=Math.floor(Math.random() * 10) % 3;  //gives 0,1 or 2
-empHrs=empHrs + GetEmpWorkingHours(empCheck);   //function call
+while(totalEmpHrs<=MAX_HRS_IN_MONTH && empWorkingDays<MAX_WORKING_DAYS)
+{
+    empWorkingDays++;
+    let empCheck=Math.floor(Math.random() * 10) % 3;  //gives 0,1 or 2
+    totalEmpHrs=totalEmpHrs + GetEmpWorkingHours(empCheck);   //function call
 }
 
-let empWage = empHrs * WAGE_PER_HOUR;   //calculate from returned value
-console.log("Total hours : "+empHrs+" | Employee Wage : "+empWage);
+let empWage = totalEmpHrs * WAGE_PER_HOUR;   //calculate from returned value
+console.log("Total working Days : "+empWorkingDays+" | Total working hours : "+totalEmpHrs+" | Employee Wage : "+empWage);
 
 function GetEmpWorkingHours(empCheck)
 {
@@ -19,10 +22,8 @@ function GetEmpWorkingHours(empCheck)
     {
         case IS_PART_TIME:
             return PART_TIME_HOURS;   //4
-            break;
         case IS_FULL_TIME:
             return FULL_TIME_HOURS;   //8
-            break;
         default:
             return 0;
     }
